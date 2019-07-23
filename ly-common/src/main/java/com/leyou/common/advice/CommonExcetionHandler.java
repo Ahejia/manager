@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  */
 @ControllerAdvice //拦截所有的Controller
 public class CommonExcetionHandler {
-    
+    //ceshi
     @ExceptionHandler(LyException.class)
     public ResponseEntity<String> handlerExcetion(LyException e){
         ExceptionEnums em = e.getExceptionEnums();
