@@ -1,6 +1,7 @@
 package com.leyou.manager.upload.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @auther: hejia
  * @date: 2019/4/16
  */
+@Service
 @ConfigurationProperties(prefix = "ly.upload")
 public class UploadProperties {
 
