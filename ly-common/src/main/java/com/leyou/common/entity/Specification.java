@@ -1,5 +1,6 @@
 package com.leyou.common.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -10,6 +11,7 @@ public class Specification implements Serializable {
     /**
      * 规格模板所属商品分类id
      */
+    @Id
     private Long categoryId;
     /**
      * 规格参数模板，json格式
