@@ -33,5 +33,8 @@ ly:
       - image/jepg
       - image/png
       - image/bmg
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 
