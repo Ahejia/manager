@@ -8,10 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,5 +57,18 @@ public class BrandController {
     public ResponseEntity<Void> saveBrand(Brand brand,@RequestParam("cids")List<Long> cids){
         brandService.saveBrand(brand,cids);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    /**
+     * @describe 通过商品类目编号查询品牌信息
+     * @param cid
+     * @return org.springframework.http.ResponseEntity<java.util.List<com.leyou.common.entity.Brand>>
+     */
+    @GetMapping("cid/{cid}")
+    public ResponseEntity<List<Brand>> queryBrandByCategory(@PathVariable("cid")Long cid){
+        List<Brand> brands = brandService.queryBrandByCategory(cid);
+        if(brands == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(brands);
     }
 }

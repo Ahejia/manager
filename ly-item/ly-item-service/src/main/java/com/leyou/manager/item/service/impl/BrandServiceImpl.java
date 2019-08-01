@@ -56,4 +56,13 @@ public class BrandServiceImpl {
             this.brandMapper.insertCategoryBrand(cid,brand.getId());
         }
     }
+
+    /**
+     * @describe 通过商品类目编号查询品牌信息
+     * @param cid
+     * @return java.util.List<com.leyou.common.entity.Brand>
+     */
+    public List<Brand> queryBrandByCategory(Long cid){
+        return brandMapper.queryBrandByCategory(cid);
+    }
 }
