@@ -3,6 +3,8 @@ package com.leyou.manager.item.controller;
 import com.leyou.common.entity.Brand;
 import com.leyou.common.utils.PageResult;
 import com.leyou.manager.item.service.impl.BrandServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.List;
 @RestController
 public class BrandController {
 
+    private Logger logger = LoggerFactory.getLogger(BrandController.class);
+
     @Autowired
     private BrandServiceImpl brandService;
     /**
@@ -39,7 +43,9 @@ public class BrandController {
             @RequestParam(value = "sortBy", required = false) String sortBy,
             @RequestParam(value = "desc", defaultValue = "false") Boolean desc,
             @RequestParam(value = "key", required = false) String key){
+        logger.info("---查询品牌的数据---");
         PageResult<Brand> result = this.brandService.queryBrandByPageAndSort(page, rows, sortBy, desc, key);
+
         if(result == null || result.getItems().size() == 0){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
