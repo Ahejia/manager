@@ -1,6 +1,8 @@
 package com.leyou.common.entity;
 
 
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -9,6 +11,7 @@ import java.util.Date;
 public class Sku implements Serializable {
 
     private static final long serialVersionUID = 2663003826536984179L;
+    @Id
     private Long id;
 
     /**
@@ -47,6 +50,17 @@ public class Sku implements Serializable {
      * 最后修改时间
      */
     private Date lastUpdateTime;
+
+    /**库存*/
+    private Integer stock;
+    @Transient
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
     /**
      * @return id

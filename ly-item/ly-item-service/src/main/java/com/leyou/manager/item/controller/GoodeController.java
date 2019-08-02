@@ -43,9 +43,20 @@ public class GoodeController {
 
         return ResponseEntity.ok(result);
     }
+    /***
+     * @describe 新增商品
+     * @param spu
+     * @return org.springframework.http.ResponseEntity<java.lang.Void>
+     */
+    public ResponseEntity<Void> saveGoods(@RequestBody SpuBo spu){
+        try {
+            logger.info("---保存商品---");
+            goodsService.save(spu);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-    public ResponseEntity<Void> saveGoods(@RequestBody Spu spu){
-        
-        return null;
     }
 }
