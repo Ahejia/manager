@@ -65,6 +65,7 @@ public class BrandController {
      */
     @GetMapping("cid/{cid}")
     public ResponseEntity<List<Brand>> queryBrandByCategory(@PathVariable("cid")Long cid){
+        logger.info("---查询类目编号为"+cid+"的品牌信息数据---");
         List<Brand> brands = brandService.queryBrandByCategory(cid);
         if(brands == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
