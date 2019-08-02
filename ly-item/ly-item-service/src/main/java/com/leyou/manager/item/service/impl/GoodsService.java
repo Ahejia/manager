@@ -11,6 +11,8 @@ import com.leyou.common.utils.PageResult;
 import com.leyou.common.vo.SpuBo;
 import com.leyou.manager.item.dao.*;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class GoodsService {
+
+    private Logger logger = LoggerFactory.getLogger(GoodsService.class);
     @Autowired
     private SpuMapper spuMapper;
     @Autowired
@@ -59,7 +63,7 @@ public class GoodsService {
         if(StringUtils.isNoneBlank(key)){
             criteria.andLike("title","%"+key+"%");
         }
-        Page<Spu> pageInfo = (Page<Spu>) this.spuMapper.selectByExample(example);
+        Page<Spu> pageInfo = (Page<Spu>) spuMapper.selectByExample(example);
         List<SpuBo> list = pageInfo.getResult().stream().map(spu -> {
             //把spu变为spuBo
             SpuBo spuBo = new SpuBo();
@@ -86,12 +90,14 @@ public class GoodsService {
     @Transactional
     public void save(SpuBo spu) {
         // 保存spu
+        logger.info("---准备保存spu的数据---");
         spu.setSaleable(MessageEnums.IS_RIGHT.getCode());
         spu.setValid(MessageEnums.IS_RIGHT.getCode());
         spu.setCreateTime(new Date());
         spu.setLastUpdateTime(spu.getCreateTime());
         spuMapper.insert(spu);
         // 保存spu详情
+        logger.info("---再保存spu详情数据---");
         spu.getSpuDetail().setSpuId(spu.getId());
         spuDetailMapper.insert(spu.getSpuDetail());
 
@@ -107,11 +113,12 @@ public class GoodsService {
             // 保存sku
             sku.setSpuId(spuId);
             // 默认不参与任何促销
-            sku.setCreateTime(new Date());
-            sku.setLastUpdateTime(sku.getCreateTime());
+            logger.info("---保存sku信息---");
+            sku.setLastUpdateTime(new Date());
             skuMapper.insert(sku);
 
             // 保存库存信息
+            logger.info("---准备保存库存信息---");
             Stock stock = new Stock();
             stock.setSkuId(sku.getId());
             stock.setStock(sku.getStock());

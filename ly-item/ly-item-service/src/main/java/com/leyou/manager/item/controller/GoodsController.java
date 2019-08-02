@@ -1,6 +1,5 @@
 package com.leyou.manager.item.controller;
 
-import com.leyou.common.entity.Spu;
 import com.leyou.common.utils.PageResult;
 import com.leyou.common.vo.SpuBo;
 import com.leyou.manager.item.service.impl.GoodsService;
@@ -22,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @date: 2019/4/17
  */
 @RestController
-public class GoodeController {
+public class GoodsController {
 
-    private Logger logger = LoggerFactory.getLogger(GoodeController.class);
+    private Logger logger = LoggerFactory.getLogger(GoodsController.class);
 
     @Autowired
     private GoodsService goodsService;
