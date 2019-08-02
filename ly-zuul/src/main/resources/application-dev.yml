@@ -15,7 +15,7 @@ eureka:
 zuul:
   ignored-patterns: /upload/** # zuul.ignored-patterns:用来忽略不希望路由的url路径
   ignored-services: upload-service # 忽略upload-service服务
-  prefix: /manager # 添加路由前缀   项目名称
+  prefix: /api # 添加路由前缀   项目名称
   retryable: true
   routes:
     ly-item-service: /item/** # 将商品微服务映射到/item/**

@@ -5,6 +5,8 @@ import com.leyou.manager.item.dao.SpecificationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @version : 1.0
  * @ClassName: SpecifcationService
@@ -20,5 +22,12 @@ public class SpecifcationService {
 
     public Specification queryById(Long id){
         return this.specificationMapper.selectByPrimaryKey(id);
+    }
+
+    /**通过商品分类id查询规格参数*/
+    public List<Specification> querySpecParams(Long gid,Long cid,Boolean searching,Boolean generic){
+        Specification specification = new Specification();
+        specification.setCategoryId(cid);
+        return specificationMapper.select(specification);
     }
 }

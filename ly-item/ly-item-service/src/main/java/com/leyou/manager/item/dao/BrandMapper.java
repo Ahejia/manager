@@ -23,6 +23,6 @@ public interface BrandMapper extends Mapper<Brand> {
      * @param cid
      * @return java.util.List<com.leyou.common.entity.Brand>
      */
-    @Select("select b.* FROM tb_brand b LEFT JOIN tb_category_brand cb ON b.id = cb.brand_id WHERE cb.category_id = #{cid}")
+    @Select("select b.* FROM brand b LEFT JOIN category_brand cb ON b.id = cb.brand_id WHERE cb.category_id = #{cid}")
     List<Brand> queryBrandByCategory(@Param("cid")Long cid);
 }

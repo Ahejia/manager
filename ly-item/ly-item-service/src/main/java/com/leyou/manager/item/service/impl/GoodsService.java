@@ -87,7 +87,7 @@ public class GoodsService {
     }
 
 
-    @Transactional
+    @Transactional(rollbackFor = {})
     public void save(SpuBo spu) {
         // 保存spu
         logger.info("---准备保存spu的数据---");

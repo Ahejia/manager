@@ -63,7 +63,7 @@ public class BrandController {
      * @param cid
      * @return org.springframework.http.ResponseEntity<java.util.List<com.leyou.common.entity.Brand>>
      */
-    @GetMapping("cid/{cid}")
+    @GetMapping("brand/cid/{cid}")
     public ResponseEntity<List<Brand>> queryBrandByCategory(@PathVariable("cid")Long cid){
         logger.info("---查询类目编号为"+cid+"的品牌信息数据---");
         List<Brand> brands = brandService.queryBrandByCategory(cid);

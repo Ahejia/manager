@@ -1,6 +1,9 @@
 package com.leyou.common.entity;
 
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 /**
@@ -8,6 +11,8 @@ import java.util.Date;
  */
 public class Spu implements Serializable {
     private static final long serialVersionUID = 1257274503614301832L;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     /**
      * 主题
