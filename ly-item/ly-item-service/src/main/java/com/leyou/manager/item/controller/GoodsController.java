@@ -1,5 +1,7 @@
 package com.leyou.manager.item.controller;
 
+import com.leyou.common.entity.Sku;
+import com.leyou.common.entity.SpuDetail;
 import com.leyou.common.utils.PageResult;
 import com.leyou.common.vo.SpuBo;
 import com.leyou.manager.item.service.impl.GoodsService;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @version : 1.0
@@ -55,5 +59,29 @@ public class GoodsController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+    /**
+     * @describe 编号查询详情
+     * @param id 商品编号
+     * @return org.springframework.http.ResponseEntity<com.leyou.common.entity.SpuDetail>
+     */
+    @GetMapping("spu/detail/{id}")
+    public ResponseEntity<SpuDetail> getSpuDetailById(@PathVariable("id") Long id){
+        logger.info("---查询编号为"+id+"的商品信息---");
+        SpuDetail spuDetail = goodsService.getSpuDetailById(id);
+        if(spuDetail != null){
+            return ResponseEntity.ok(spuDetail);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("sku/list")
+    public ResponseEntity<Sku> getSkuBySpuId(@RequestParam("id")Long id){
+        logger.info("---查询编号为"+id+"sku信息---");
+        List<Sku> list = goodsService.getSkuBySpuId(id);
+        if(list != null){
+//            return ResponseEntity.ok(list);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

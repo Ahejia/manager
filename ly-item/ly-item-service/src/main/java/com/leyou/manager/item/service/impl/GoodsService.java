@@ -2,10 +2,7 @@ package com.leyou.manager.item.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.leyou.common.entity.Brand;
-import com.leyou.common.entity.Sku;
-import com.leyou.common.entity.Spu;
-import com.leyou.common.entity.Stock;
+import com.leyou.common.entity.*;
 import com.leyou.common.enums.MessageEnums;
 import com.leyou.common.utils.PageResult;
 import com.leyou.common.vo.SpuBo;
@@ -124,5 +121,17 @@ public class GoodsService {
             stock.setStock(sku.getStock());
             stockMapper.insert(stock);
         }
+    }
+    /**
+     * @describe 编号查询详情
+     * @param id 编号
+     * @return com.leyou.common.entity.SpuDetail
+     */
+    public SpuDetail getSpuDetailById(Long id){
+        return spuDetailMapper.selectByPrimaryKey(id);
+    }
+
+    public List<Sku> getSkuBySpuId(Long id){
+        return null;
     }
 }

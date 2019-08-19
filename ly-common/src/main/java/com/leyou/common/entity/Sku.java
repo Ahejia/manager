@@ -1,6 +1,8 @@
 package com.leyou.common.entity;
 
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
@@ -12,6 +14,7 @@ public class Sku implements Serializable {
 
     private static final long serialVersionUID = 2663003826536984179L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
