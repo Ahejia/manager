@@ -1,5 +1,6 @@
 package com.leyou.common.entity;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -10,6 +11,7 @@ public class Stock implements Serializable {
     /**
      * 库存对应的商品sku id
      */
+    @Id
     private Long skuId;
 
     /**

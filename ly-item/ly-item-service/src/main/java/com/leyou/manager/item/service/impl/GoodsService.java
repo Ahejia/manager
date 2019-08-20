@@ -132,6 +132,13 @@ public class GoodsService {
     }
 
     public List<Sku> getSkuBySpuId(Long id){
-        return null;
+        //查询sku
+        Sku record = new Sku();
+        record.setSpuId(id);
+        List<Sku> skus = skuMapper.select(record);
+        for (Sku sku : skus) {
+            sku.setStock(stockMapper.selectByPrimaryKey(sku.getId()).getStock());
+        }
+        return skus;
     }
 }

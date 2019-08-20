@@ -74,14 +74,19 @@ public class GoodsController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
+    /**
+     * @describe 编号查询sku信息
+     * @param id sku编号
+     * @return org.springframework.http.ResponseEntity<java.util.List<com.leyou.common.entity.Sku>>
+     */
     @GetMapping("sku/list")
-    public ResponseEntity<Sku> getSkuBySpuId(@RequestParam("id")Long id){
+    public ResponseEntity<List<Sku>> getSkuBySpuId(@RequestParam("id")Long id){
         logger.info("---查询编号为"+id+"sku信息---");
         List<Sku> list = goodsService.getSkuBySpuId(id);
-        if(list != null){
-//            return ResponseEntity.ok(list);
+        if(list == null && list.size() == 0){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(list);
+
     }
 }

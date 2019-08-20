@@ -55,8 +55,9 @@ public class Sku implements Serializable {
     private Date lastUpdateTime;
 
     /**库存*/
-    private Integer stock;
     @Transient
+    private Integer stock;
+
     public Integer getStock() {
         return stock;
     }
