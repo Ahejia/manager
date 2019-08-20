@@ -76,7 +76,7 @@ public class GoodsController {
     }
     /**
      * @describe 编号查询sku信息
-     * @param id sku编号
+     * @param id spu编号
      * @return org.springframework.http.ResponseEntity<java.util.List<com.leyou.common.entity.Sku>>
      */
     @GetMapping("sku/list")
@@ -88,5 +88,11 @@ public class GoodsController {
         }
         return ResponseEntity.ok(list);
 
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateGoods(@RequestBody SpuBo spuBo){
+        goodsService.update(spuBo);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

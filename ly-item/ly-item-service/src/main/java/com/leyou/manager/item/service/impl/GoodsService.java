@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Arrays;
@@ -131,6 +132,11 @@ public class GoodsService {
         return spuDetailMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * @describe spu编号查询sku信息
+     * @param id spu编号
+     * @return java.util.List<com.leyou.common.entity.Sku>
+     */
     public List<Sku> getSkuBySpuId(Long id){
         //查询sku
         Sku record = new Sku();
@@ -141,4 +147,38 @@ public class GoodsService {
         }
         return skus;
     }
+
+    @Transactional
+    public void update(SpuBo spu) {
+        // 查询以前sku
+        List<Sku> skus = getSkuBySpuId(spu.getId());
+        // 如果以前存在，则删除
+        if(!CollectionUtils.isEmpty(skus)) {
+            List<Long> ids = skus.stream().map(s -> s.getId()).collect(Collectors.toList());
+            // 删除以前库存
+            Example example = new Example(Stock.class);
+            example.createCriteria().andIn("skuId", ids);
+            this.stockMapper.deleteByExample(example);
+
+            // 删除以前的sku
+            Sku record = new Sku();
+            record.setSpuId(spu.getId());
+            this.skuMapper.delete(record);
+
+        }
+        // 新增sku和库存
+        saveSkuAndStock(spu.getSkus(), spu.getId());
+
+        // 更新spu
+        spu.setLastUpdateTime(new Date());
+        spu.setCreateTime(null);
+        spu.setValid(null);
+        spu.setSaleable(null);
+        this.spuMapper.updateByPrimaryKeySelective(spu);
+
+        // 更新spu详情
+        this.spuDetailMapper.updateByPrimaryKeySelective(spu.getSpuDetail());
+    }
+
+
 }
